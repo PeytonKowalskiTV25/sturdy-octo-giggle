@@ -61,16 +61,25 @@ class HardDifButton(Button):
         screen.state["difficulty"] = "Hard"
         print("Difficulty set to Hard")
 
-class MemoryBox(Image):
+class MemoryBox(Button):
     def __init__(self, coordX, coordY, imagePath, hiddenImagePath):
-        super().__init__(coordX, coordY, 20, 20)
-        self.isFlipped = False  # Track if the box is flipped
-        self.hiddenImagePath = hiddenImagePath
+        super().__init__((coordX, coordY), 20, 20, "")
         self.imagePath = imagePath
+        self.hiddenImagePath = hiddenImagePath
+        self.hidden = True  # Initially hidden
+        self.currentImage = imagePath
+        self.rect = pygame.Rect(coordX, coordY, 20, 20)  # Define the rect attribute
 
-    def flip(self):
-        self.isFlipped = not self.isFlipped  # Toggle the flipped state
-        if self.isFlipped:
-            self.imagePath = self.hiddenImagePath  # Change to flipped image
-        else:
-            self.imagePath = self.imagePath  # Change back to original image
+    def toggleVisibility(self):
+        self.hidden = not self.hidden
+        self.currentImage = self.imagePath if not self.hidden else self.hiddenImagePath
+
+    def display(self, surface):
+        # Draw the current image
+        img = pygame.image.load(self.currentImage)
+        img = pygame.transform.scale(img, (self.rect[2], self.rect[3]))
+        surface.blit(img, (self.rect[0], self.rect[1]))
+
+    def onClick(self, screen):
+        self.toggleVisibility()
+        print(f"Box at {self.position} clicked, hidden: {self.hidden}, currentImage: {self.currentImage}")
