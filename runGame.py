@@ -6,7 +6,7 @@ window = Window("Start Screen", (0,255,0)) ##Create the window to work with
 
 ##Create Screen Objects for use------
 startScreen = StartScreen(window)
-gameScreen = None
+gameScreen = GameScreen(window)
 ##-----------------------------------
 
 screen = startScreen ##set screen to be the starting screen
@@ -14,7 +14,6 @@ screen = startScreen ##set screen to be the starting screen
 while True: ##Game loop
     ##Enter code here to handle changes between screens---
     if screen.state["status"] == "Game Started":
-        gameScreen = GameScreen(window, screen.state["difficulty"])
         screen = gameScreen
 
     ##----------------------------------------------------
