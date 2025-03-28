@@ -39,8 +39,10 @@ class MemoryBox(Image):
     def __init__(self, coordX, coordY, coverImagePath, hiddenImagePath):
         self.coverImagePath = coverImagePath
         self.hiddenImagePath = hiddenImagePath
+        self.hidden = True
         super().__init__((coordX, coordY), 15, 15, self.coverImagePath)
         
     def onClick(self, screen):
         self.imagePath = self.hiddenImagePath
-        print(f"{self.hiddenImagePath}")
+        self.hidden = False
+        screen.state["shownCards"] += 1

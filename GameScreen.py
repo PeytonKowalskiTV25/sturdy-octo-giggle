@@ -8,8 +8,10 @@ class GameScreen(Screen):
         super().__init__(window, (181,26,58))
         self.state = {
             "status": "Game Started",
-            "symbols": ["Amex", "CapitalOne", "chase", "ChaseSlate", "CapitalOneSavor", "Citi", "UsBank", "WellsFargo"]
+            "symbols": ["Amex", "CapitalOne", "chase", "ChaseSlate", "CapitalOneSavor", "Citi", "UsBank", "WellsFargo"],
+            "shownCards" : 0
         }
+        self.matches = 0
         self.elements = []
 
         symbols = self.state["symbols"][:8] * 2
@@ -26,3 +28,21 @@ class GameScreen(Screen):
                 hiddenImage = f"./imgus/{symbols[i]}.png"
                 self.elements.append(MemoryBox(coordX, coordY, "./imgus/back of card.png", hiddenImage))
                 i += 1
+        
+    def checkPairs(self):
+        revealedElements = []
+        for element in self.elements:
+            if not element.hidden:
+                revealedElements.append(element)
+
+        if self.state["shownCards"] == 2:
+            if revealedElements[0].hiddenImagePath == revealedElements[1].hiddenImagePath:
+                print("It's a match!")
+                for element in revealedElements:
+                    self.elements.remove(element)
+            else:
+                print("Not a match!")
+        for element in revealedElements:
+            element.hidden = True
+            element.imagePath = element.coverImagePath
+            self.state["shownCards"] = 0
