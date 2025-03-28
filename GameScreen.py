@@ -40,6 +40,7 @@ class GameScreen(Screen):
                 print("It's a match!")
                 for element in revealedElements:
                     self.elements.remove(element)
+                    self.matches += 1
             else:
                 print("Not a match!")
         for element in revealedElements:
