@@ -1,17 +1,14 @@
 from PyUI.Window import Window
 from GameScreen import GameScreen
 from StartScreen import StartScreen
-from WinScreen import WinScreen
 from time import sleep
 
 window = Window("Start Screen", (0,255,0))
 window2 = Window("Game Screen", (0,255,0))
-window3 = Window("Win Screen", (0,255,0))
 
 ##Create Screen Objects for use------
 startScreen = StartScreen(window)
 gameScreen = GameScreen(window2)
-winScreen = WinScreen(window3)
 ##-----------------------------------
 
 screen = startScreen
@@ -24,11 +21,9 @@ while True: ##Game loop
         if screen.state["shownCards"] >= 2:
             screen.checkPairs()
             sleep(2)
-        
-        if screen.elements == []:
-            print("You Won!!")
-            screen = winScreen
-            break
+            if screen.elements == []:
+                print("You Won!!")
+                screen = startScreen
     ##----------------------------------------------------
 
     window.checkForInput(screen) #checks for inputs on the screen
