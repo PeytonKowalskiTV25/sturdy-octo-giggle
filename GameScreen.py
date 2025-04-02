@@ -17,7 +17,6 @@ class GameScreen(Screen):
         symbols = self.state["symbols"][:8] * 2
         random.shuffle(symbols)
         random.shuffle(symbols)
-        print("Shuffled symbols:", symbols)
 
         # Create a 4x4 grid of MemoryBox elements
         i = 0

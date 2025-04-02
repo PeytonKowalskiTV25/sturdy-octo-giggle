@@ -24,6 +24,7 @@ while True: ##Game loop
             if screen.elements == []:
                 print("You Won!!")
                 screen = startScreen
+                screen.state["status"] == "Game Started"
     ##----------------------------------------------------
 
     window.checkForInput(screen) #checks for inputs on the screen
